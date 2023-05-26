@@ -1,0 +1,25 @@
+﻿<Window x:Class="TestWPF.Resources.ReplyBoxWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF.Resources"
+        mc:Ignorable="d"
+        Title="ReplyBoxWindow" 
+        Height="200" Width="200"
+            WindowStyle="None" 
+            AllowsTransparency="True" 
+            Background="Transparent" 
+            Topmost="True" 
+        MouseLeftButtonDown="Reply_MouseLeftButtonDown"
+        >
+    <Grid>
+        <Viewbox Grid.RowSpan="2" Height="150" Width="150" x:Name="ReplyBoxView">
+            <Grid Background="Transparent">
+                <Border Background="#B3C5E0" CornerRadius="20" Padding="10" Grid.RowSpan="2">
+                    <TextBlock TextWrapping="Wrap" x:Name="ReplyBox" Width="80"><Run Language="zh-cn"/></TextBlock>
+                </Border>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</Window>

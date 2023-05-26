@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPF", "TestWPF\TestWPF.csproj", "{6A7696B0-D82D-4A6E-9F0A-4BF9BAAB1808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp19", "D:\projects\ConsoleApp19\ConsoleApp19.csproj", "{69CE18A4-C73C-4609-AE30-87F932E49484}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp19", "ConsoleApp19\ConsoleApp19.csproj", "{69CE18A4-C73C-4609-AE30-87F932E49484}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

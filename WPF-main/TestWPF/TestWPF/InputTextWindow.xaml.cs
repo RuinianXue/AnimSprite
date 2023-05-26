@@ -26,29 +26,31 @@ namespace TestWPF
             InitializeComponent();
         }
 
-
-
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //string filePath = "path/to/text/file.txt";
+                //string fileContents = File.ReadAllText(filePath);
+                // Perform processing on fileContents here
+                Result = InputBox.Text;
+                Close();
+            }
+        }
         private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Result = InputBox.Text;
         }
 
-        private void InputBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                InputBox.Text = "1";
-
-                //string filePath = "path/to/text/file.txt";
-                //string fileContents = File.ReadAllText(filePath);
-                // Perform processing on fileContents here
-             //   Close();
-            }
-        }
 
         public string GetInputText()
         {
             return InputBox.Text;
+        }
+
+        private void ReplyBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
         /*

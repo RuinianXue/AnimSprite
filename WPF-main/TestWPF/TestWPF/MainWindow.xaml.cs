@@ -16,8 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using TestWPF.Resources;
 using WpfAnimatedGif;
-
+using System.Threading;
+using ConsoleApp19;
 namespace TestWPF
 {
     /// <summary>
@@ -25,40 +27,67 @@ namespace TestWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public event Func<string> PageDownloaded; 
+        Controller c;
+        Timer updataStatusTimer;
+        DispatcherTimer monitorStatusTimer;
+       // Timer BubbleTimer;
         public MainWindow()
         {
-            InitializeComponent();
-            LoadGifImage("Walk_left");//主界面可视化
+            InitializeComponent(); 
+            c = new Controller();
+            updataStatusTimer =  new Timer(c.setInfoEvent, null, 0, 1000);
+            c.throwRequest += getRequest;
+            monitorStatusTimer = new DispatcherTimer();
+            monitorStatusTimer.Interval= TimeSpan.FromSeconds(10);
+            monitorStatusTimer.Tick += c.monitorStatus;
+            monitorStatusTimer.Start();
+            // BubbleTimer = new Timer(c.throwRequest, null, 0, 3000);
+            LoadGifImage("Stay");
+            /*
             if (!bubbleVisible)
             {
-                setBubbleTimer();//创建计时器线程，重复ShowBubble();
+                setBubbleTimer();
             }
-        //   setChatTimer();
-        //  ShowBubble();
+            setChatTimer();*/
+            haveRequest = true;
+            ShowBubble();
+            //setBubbleTimer();
         }
-        public void HideRequestButton()
+        public void ShowChatButton()
         {
-            ChatBubble.Visibility = Visibility.Collapsed;
-            RequestBubble.Visibility = Visibility.Visible;
-            RequestButton.Visibility = Visibility.Visible;
-            ChatButton.Visibility = Visibility.Collapsed;
+            lock (lockObject)
+            {
+                ChatBubble.Visibility = Visibility.Collapsed;
+                RequestBubble.Visibility = Visibility.Visible;
+                ChatButton.Visibility = Visibility.Collapsed;
+                RequestButton.Visibility = Visibility.Visible;
+            }
         }
-        public void HideChatButton()
+        bool haveRequest;
+        public void getRequest(string requestInfomation)
         {
-            ChatBubble.Visibility = Visibility.Visible;
-            RequestBubble.Visibility = Visibility.Collapsed;
-            
+            haveRequest = true;
+            infomation = requestInfomation;
+            ShowRequestButton();
+        }
+        public void ShowRequestButton()
+        {
+            lock (lockObject)
+            {
+                ChatBubble.Visibility = Visibility.Visible;
+                RequestBubble.Visibility = Visibility.Collapsed;
+                ChatButton.Visibility= Visibility.Visible;
+                RequestButton.Visibility = Visibility.Collapsed;
+            }
         }
 
 
         public void setBubbleTimer()
         {
             bubbleTimer = new DispatcherTimer();
-            bubbleTimer.Interval = TimeSpan.FromSeconds(10);
+            bubbleTimer.Interval = TimeSpan.FromSeconds(1);
             bubbleTimer.Tick += BubbleTimer_Tick;
-            bubbleTimer.Start();
-            bubbleVisible = true;
+            //bubbleTimer.Start();
         }
         public void setChatTimer()
         {
@@ -95,14 +124,14 @@ namespace TestWPF
             BubbleButton.Height = this.Height;
             Arrow.Width = this.Width;
             Arrow.Height = this.Height;
-//            InputText.Width = this.Width;
+//          InputText.Width = this.Width;
 //          InputText.Height = this.Height;
         }
 
         //loadImage
         private void LoadGifImage(string gifMode)
         {
-            var gifPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"../../Resources/gif/{gifMode}.gif");
+            var gifPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"../../Resources/{gifMode}.gif");
             var gifImage = new BitmapImage(new Uri(gifPath));
             ImageBehavior.SetAnimatedSource(GifImage, gifImage);
             GifImage.Width = this.Width;
@@ -113,39 +142,57 @@ namespace TestWPF
         {
             DragMove();
         }
-
-
-
-
-
-
-
-
-
         //这下面是移动的实现
         private DispatcherTimer moveTimer;
         private DispatcherTimer bubbleTimer;
         private DispatcherTimer chatTimer;
+        private DispatcherTimer stayTimer;
 
         private double deltaX = 0;
         private double deltaY = 0;
         private double speed = 10;
         private Random random = new Random();
 
-        string gifFile = "Walk_left";
+        string moveGif = "Walk_left";
 
         private bool bubbleVisible = false;
         private bool isMoving = false;
 
-        private void Click_move(object sender, RoutedEventArgs e)
+        private void Move()
         {
             isMoving = true;
             moveTimer = new DispatcherTimer();
             moveTimer.Interval = TimeSpan.FromMilliseconds(10);
             moveTimer.Tick += MoveTimer_Tick;
             moveTimer.Start();
+            LoadGifImage(moveGif);
+        }
+
+        private void Click_move(object sender, RoutedEventArgs e)
+        {
+            Move();
         }
         
+        private void RandomStaying()
+        {
+            int state = random.Next(1, 5);
+            switch (state)
+            {
+                case 1:
+                    LoadGifImage("Stay");
+                    break;
+                case 2:
+                    LoadGifImage("Kick");
+                    break;
+                case 3:
+                    LoadGifImage("Rain");
+                    break;
+                case 4:
+                    Move();
+                    break;
+            }
+        }
+
         private void Click_stop(object sender, RoutedEventArgs e)
         {
             moveTimer.Stop();
@@ -160,7 +207,8 @@ namespace TestWPF
                 isMoving = false;
                 moveTimer.Stop();
                 moveTimer = new DispatcherTimer();
-                moveTimer.Start();
+                //moveTimer.Start();
+                RandomStaying();
                 return;
             }
             if (isMoving)
@@ -169,15 +217,15 @@ namespace TestWPF
                 this.Top += deltaY;
 
                 // Check for change in direction and update GIF
-                if (deltaX < 0 && gifFile != "Walk_left")
+                if (deltaX < 0 && moveGif != "Walk_left")
                 {
-                    gifFile = "Walk_left";
-                    LoadGifImage(gifFile);
+                    moveGif = "Walk_left";
+                    LoadGifImage(moveGif);
                 }
-                else if (deltaX > 0 && gifFile != "Walk_right")
+                else if (deltaX > 0 && moveGif != "Walk_right")
                 {
-                    gifFile = "Walk_right";
-                    LoadGifImage(gifFile);
+                    moveGif = "Walk_right";
+                    LoadGifImage(moveGif);
                 }
 
                 // Check for collision with screen edges
@@ -219,52 +267,59 @@ namespace TestWPF
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         private DateTime lastChatBubbleClickTime = DateTime.MinValue; // 记录上一次红色对话框点击的时间
 
+        private string infomation;
         private void ChatBubble_Click(object sender, RoutedEventArgs e)
         {
             //红色对话框事件
+            //bubbleTimer.Stop();
             HideBubble();
             Console.WriteLine("Chat bubble clicked!");
-            StartGlobalTimer();
-            lastChatBubbleClickTime = DateTime.Now; // 记录当前时间
-        }
+            // StartChatTimer();//注意这里
+            // lastChatBubbleClickTime = DateTime.Now; // 记录当前时间
+            lock(lockObject)
+            CallReplyWindow(infomation);
+            
 
-        private void ChatTimer_Tick(object sender, EventArgs e)
-        {
-            const int interval = 1; // 时间间隔，单位：秒
-
-            if ((DateTime.Now - lastChatBubbleClickTime).TotalSeconds >= interval)
-            {
-                ShowBubble();
-                chatTimer.Stop(); // 停止定时器
-            }
         }
 
 
-        private void StartGlobalTimer()
+
+        private void StartChatTimer()
         {
             chatTimer = new DispatcherTimer();
             chatTimer.Interval = TimeSpan.FromSeconds(1);
             chatTimer.Tick += ChatTimer_Tick;
             chatTimer.Start();
         }
-
-
         
+        private void StartStayTimer()
+        {
+            stayTimer = new DispatcherTimer();
+            stayTimer.Interval = TimeSpan.FromSeconds(3);
+            stayTimer.Tick += StayTimer_Tick;
+            stayTimer.Start();
+        }
+
+        private void StayTimer_Tick(object sender, EventArgs e)
+        {
+            if(!isMoving)
+            {
+                RandomStaying();
+            }
+        }
+        private void ChatTimer_Tick(object sender, EventArgs e) //
+        {
+            const int interval = 3; // 时间间隔，单位：秒
+
+            if ((DateTime.Now - lastChatBubbleClickTime).TotalSeconds >= interval)
+            {
+                //ShowBubble();
+                chatTimer.Stop(); // 停止定时器
+            }
+        }
+
         private void BubbleTimer_Tick(object sender, EventArgs e)
         {
 
@@ -276,9 +331,10 @@ namespace TestWPF
             ChatBubble.Visibility = Visibility.Collapsed;
             RequestBubble.Visibility = Visibility.Collapsed;
             bubbleVisible = false;
-            bubbleTimer.Stop();
+            //bubbleTimer.Stop();
         }
         
+        //气泡被点击
         private void RequestBubble_Click(object sender, MouseButtonEventArgs e)
         {
             HideBubble();
@@ -288,36 +344,116 @@ namespace TestWPF
             HideBubble();
         }
 
-        private void RequestBubble_Click(object sender, RoutedEventArgs e)
+        //处理请求信息
+        private string CallRequestWindow()
         {
+            lock (lockObject)
+            {
+                double augmentRate = this.Width / 100;
+                var requestWindow = new InputTextWindow();
+                requestWindow.Owner = this;
+
+                requestWindow.Height *= augmentRate;
+                requestWindow.Width *= augmentRate;
+
+                requestWindow.Left = this.Left + this.Width;
+                requestWindow.Top = this.Top + this.Width / 3;
+
+                TextBox inputBox = (TextBox)requestWindow.FindName("InputBox");
+                inputBox.Width *= augmentRate;
+                inputBox.Height *= augmentRate;
+
+                Viewbox inputView = (Viewbox)requestWindow.FindName("InputBoxView");
+                inputView.Width *= augmentRate;
+                inputView.Height *= augmentRate;
+
+                //ArrowImage.Visibility = Visibility.Visible;//
+                // 显示新窗口
+                requestWindow.ShowDialog();
+                //获取文本
+                return requestWindow.Result;
+                //文本正确
+                //Console.WriteLine(result);
+                //这里应该监听一个指令
+                /*
+                if (!isWorkCompleted)
+                {
+                    // 工作未完成，暂停操作
+                    Console.WriteLine("Work is not completed yet, please wait...");
+                    return;
+                }
+                */
+            }
+        }
+
+        //处理回复信息
+        private void CallReplyWindow(string text)
+        {
+            lock (lockObject)
+            {
+                double augmentRate = this.Width / 100;
+                // Update ReplyWindow size and position
+                ReplyBoxWindow replyWindow = new ReplyBoxWindow();
+                replyWindow.Owner = this;
+
+                replyWindow.Width = replyWindow.Width * augmentRate;
+                replyWindow.Height = replyWindow.Height * augmentRate;
+
+                // Update font size
+                TextBlock replyBox = (TextBlock)replyWindow.FindName("ReplyBox");
+                replyBox.Width *= augmentRate;
+                replyBox.Height *= augmentRate;
+
+                replyBox.FontSize = replyBox.FontSize * augmentRate;
+                replyBox.Text = text;
+
+                Viewbox replyView = (Viewbox)replyWindow.FindName("ReplyBoxView");
+                replyView.Width *= augmentRate;
+                replyView.Height *= augmentRate;
+
+                replyWindow.Left = this.Left + this.Width;
+                replyWindow.Top = this.Top;
+                replyWindow.ShowDialog();
+
+                //如果要显示文本这里需要传入文本。！！！！！！
+                //bubbleTimer.Start();
+                haveRequest = false;
+                ShowBubble();
+            }
+        }
+
+        private void MainWindow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            RandomStaying();
+        }
+        private void ProcessRequests(string input)
+        {
+            CallReplyWindow(c.getResponds(new requestInfo(input)));
+        }
+
+        private void RequestBubble_Click(object sender, RoutedEventArgs e)
+
+        {
+            //bubbleTimer.Stop();
             //蓝色对话框事件
             HideBubble();
             Console.WriteLine("Request bubble clicked!");
-            var newWindow = new InputTextWindow();
-            newWindow.Owner = this;
-
-            newWindow.Left = this.Left + this.Width ;
-            newWindow.Top = this.Top + this.Height-20;
-
-            ArrowImage.Visibility = Visibility.Visible; 
-            // 显示新窗口
-            newWindow.ShowDialog();
-
-            //获取文本
-            string result = newWindow.Result;
-
-            //文本正确
-            Console.WriteLine(result);
-            //这里应该监听一个指令
-            /*
-            if (!isWorkCompleted)
+            //HideBubble();
+            lock (lockObject)
             {
-                // 工作未完成，暂停操作
-                Console.WriteLine("Work is not completed yet, please wait...");
-                return;
+                string input = CallRequestWindow();
+                ProcessRequests(input);
             }
-            */
-            ShowBubble();
+          //  bubbleTimer.Start();
+            //ShowBubble();
+            //如果事件来了
+            /*if(true)
+            {
+                ArrowImage.Visibility = Visibility.Hidden;//
+                ShowBubble();
+            }*/
+            //Move();
+
         }
         /*
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -344,23 +480,46 @@ namespace TestWPF
             isWorkCompleted = true;
         }
         */
-
+        static object lockObject = new object();
         private void ShowBubble()
         {
-            int randomNum = random.Next(1, 101);
-            if (randomNum <= 30)
-            {
-                HideChatButton();
-            }
-            else 
-            {   
-                HideRequestButton();
+            lock(lockObject){
+                int randomNum = random.Next(1, 101);
+                bubbleVisible = true;                            
+                if (haveRequest)
+                {
+                    ShowRequestButton();
+                }
+                else
+                {
+                    ShowChatButton();
+                }
             }
         }
-       
+        
+
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //string filePath = "path/to/text/file.txt";
+                //string fileContents = File.ReadAllText(filePath);
+                // Perform processing on fileContents here
+            }
+        }
+
+
         private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+        /*
+private void ChatInput_TextChanged(object sender, TextChangedEventArgs e)
+{
+   if (string.IsNullOrEmpty(ChatInput.Text))
+   {
+       ShowBubble();
+   }
+}*/
     }
 }

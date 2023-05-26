@@ -8,6 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/arrow.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/crawl.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/crawl_up.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/kick.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/rain.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/stay.gif")]
 
 
