@@ -20,11 +20,17 @@ using TestWPF.Resources;
 using WpfAnimatedGif;
 using System.Threading;
 using ConsoleApp19;
+using System.IO;
+
 namespace TestWPF
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    /// 
+
+
+
     public partial class MainWindow : Window
     {
         Controller c;
@@ -347,8 +353,10 @@ namespace TestWPF
         //处理请求信息
         private string CallRequestWindow()
         {
+
             lock (lockObject)
             {
+                /*
                 double augmentRate = this.Width / 100;
                 var requestWindow = new InputTextWindow();
                 requestWindow.Owner = this;
@@ -366,12 +374,14 @@ namespace TestWPF
                 Viewbox inputView = (Viewbox)requestWindow.FindName("InputBoxView");
                 inputView.Width *= augmentRate;
                 inputView.Height *= augmentRate;
-
+                */
                 //ArrowImage.Visibility = Visibility.Visible;//
                 // 显示新窗口
+                var requestWindow = new ChatWindow();
+                requestWindow.Owner = this;
                 requestWindow.ShowDialog();
                 //获取文本
-                return requestWindow.Result;
+                return requestWindow.SendText;
                 //文本正确
                 //Console.WriteLine(result);
                 //这里应该监听一个指令
@@ -426,6 +436,7 @@ namespace TestWPF
         {
             RandomStaying();
         }
+
         private void ProcessRequests(string input)
         {
             CallReplyWindow(c.getResponds(new requestInfo(input)));

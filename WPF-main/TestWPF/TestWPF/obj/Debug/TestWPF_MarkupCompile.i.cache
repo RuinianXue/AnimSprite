@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\86187\Desktop\WPF-main\TestWPF\TestWPF\obj\Debug\
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\
 TestWPF
 none
 false
 DEBUG;TRACE
-C:\Users\86187\Desktop\WPF-main\TestWPF\TestWPF\App.xaml
-3-1423302713
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\App.xaml
+4148135623
 
-8831145701
-15140501622
-InputTextWindow.xaml;MainWindow.xaml;ReplyBoxWindow.xaml;
+91213985965
+151370699400
+ChatWindow.xaml;InputTextWindow.xaml;MainWindow.xaml;ReplyBoxWindow.xaml;
 
-False
+True
 
