@@ -4,28 +4,16 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\obj\Debug\
-=======
-D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
 TestWPF
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\App.xaml
 4148135623
 
 91213985965
 15-402016480
-=======
-D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\App.xaml
-4148135623
-
-91213985965
-151370699400
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
 ChatWindow.xaml;InputTextWindow.xaml;MainWindow.xaml;ReplyBoxWindow.xaml;
 
 True

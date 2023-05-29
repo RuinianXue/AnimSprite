@@ -47,19 +47,11 @@ namespace TestWPF
             }
         }
     }
-<<<<<<< HEAD
     public partial class ChatWindow : Window
     {
         public string SendText { get; set; }
         public event Action<string,int> OnMessageReceived;
         public event Action closed;
-=======
-
-
-    public partial class ChatWindow : Window
-    {
-        public string SendText { get; set; }
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
         public ChatWindow()
         {
             InitializeComponent();
@@ -118,11 +110,6 @@ namespace TestWPF
                 }
             }
         }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -143,10 +130,7 @@ namespace TestWPF
             {
                 if(messageText.Contains("bye")||messageText.Contains("再见"))
                 {
-<<<<<<< HEAD
                     closed();
-=======
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
                     Close();
                     return;
                 }
@@ -204,15 +188,9 @@ namespace TestWPF
         }
         //——————————————————————————————————————
         //————————这里需要修改——————————————
-<<<<<<< HEAD
         public void ReplyMessage(string s)
         {
             string messageText = s;//这里需要修改！！！！！
-=======
-        private void ReplyMessage()
-        {
-            string messageText = "";//这里需要修改！！！！！
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
             NewMessageBubble(false, messageText);
         }
 
@@ -222,16 +200,10 @@ namespace TestWPF
             messageText = messageInput.Text;//这个是message，可以被读取
 
             NewMessageBubble(true, messageText);
-<<<<<<< HEAD
             OnMessageReceived(messageText,2);
             // Clear the input TextBox
             messageInput.Text = "";
             
-=======
-            // Clear the input TextBox
-            messageInput.Text = "";
-
->>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
         }
         private void ClearMessages_Click(object sender, RoutedEventArgs e)
         {
