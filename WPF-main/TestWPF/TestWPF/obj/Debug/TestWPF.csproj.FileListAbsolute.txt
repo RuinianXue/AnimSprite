@@ -78,6 +78,7 @@ D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.csproj.CoreCompi
 D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.csproj.CopyComplete
 D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.exe
 D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.pdb
+<<<<<<< HEAD
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\bin\Debug\TestWPF.exe.config
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\bin\Debug\TestWPF.exe
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\bin\Debug\TestWPF.pdb
@@ -107,3 +108,5 @@ C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\obj\Debug\TestWP
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.csproj.CopyComplete
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.exe
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.pdb
+=======
+>>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0

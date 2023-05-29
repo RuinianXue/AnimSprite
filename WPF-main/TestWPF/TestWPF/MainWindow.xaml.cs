@@ -379,11 +379,17 @@ namespace TestWPF
                 */
                 //ArrowImage.Visibility = Visibility.Visible;//
                 // 显示新窗口
+<<<<<<< HEAD
                 requestWindow = new ChatWindow();
                 requestWindow.Owner = this;
                 requestWindow.Show();
                 requestWindow.OnMessageReceived += ProcessRequests;
                 requestWindow.closed += ShowChatButton;
+=======
+                var requestWindow = new ChatWindow();
+                requestWindow.Owner = this;
+                requestWindow.ShowDialog();
+>>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
                 //获取文本
                 return requestWindow.SendText;
                 //文本正确
@@ -441,7 +447,11 @@ namespace TestWPF
             RandomStaying();
         }
 
+<<<<<<< HEAD
         private void ProcessRequests(string input,int op)
+=======
+        private void ProcessRequests(string input)
+>>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
         {
             string respond = c.getResponds(input);
             if (op==1)

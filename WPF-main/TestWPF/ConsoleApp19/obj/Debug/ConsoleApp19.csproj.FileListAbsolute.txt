@@ -20,6 +20,7 @@ D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.csproj
 D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.csproj.CoreCompileInputs.cache
 D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.dll
 D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.pdb
+<<<<<<< HEAD
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\bin\Debug\ConsoleApp19.dll.config
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\bin\Debug\ConsoleApp19.dll
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\bin\Debug\ConsoleApp19.pdb
@@ -27,3 +28,5 @@ C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\obj\Debug\C
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.csproj.CoreCompileInputs.cache
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.dll
 C:\Users\86187\Desktop\AnimSprite-main\WPF-main\TestWPF\ConsoleApp19\obj\Debug\ConsoleApp19.pdb
+=======
+>>>>>>> 75876fca34f528d7779b8a6778f62f1717ffa6f0
