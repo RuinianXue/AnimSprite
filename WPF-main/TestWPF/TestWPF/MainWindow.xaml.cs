@@ -20,14 +20,21 @@ using TestWPF.Resources;
 using WpfAnimatedGif;
 using System.Threading;
 using ConsoleApp19;
+using System.IO;
+
 namespace TestWPF
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    /// 
+
+
+
     public partial class MainWindow : Window
     {
         Controller c;
+        SystemTool st;
         Timer updataStatusTimer;
         DispatcherTimer monitorStatusTimer;
        // Timer BubbleTimer;
@@ -41,6 +48,7 @@ namespace TestWPF
             monitorStatusTimer.Interval= TimeSpan.FromSeconds(10);
             monitorStatusTimer.Tick += c.monitorStatus;
             monitorStatusTimer.Start();
+            infomation = "你好";
             // BubbleTimer = new Timer(c.throwRequest, null, 0, 3000);
             LoadGifImage("Stay");
             /*
@@ -343,12 +351,14 @@ namespace TestWPF
         {
             HideBubble();
         }
-
+        ChatWindow requestWindow;
         //处理请求信息
         private string CallRequestWindow()
         {
+
             lock (lockObject)
             {
+                /*
                 double augmentRate = this.Width / 100;
                 var requestWindow = new InputTextWindow();
                 requestWindow.Owner = this;
@@ -366,12 +376,16 @@ namespace TestWPF
                 Viewbox inputView = (Viewbox)requestWindow.FindName("InputBoxView");
                 inputView.Width *= augmentRate;
                 inputView.Height *= augmentRate;
-
+                */
                 //ArrowImage.Visibility = Visibility.Visible;//
                 // 显示新窗口
-                requestWindow.ShowDialog();
+                requestWindow = new ChatWindow();
+                requestWindow.Owner = this;
+                requestWindow.Show();
+                requestWindow.OnMessageReceived += ProcessRequests;
+                requestWindow.closed += ShowChatButton;
                 //获取文本
-                return requestWindow.Result;
+                return requestWindow.SendText;
                 //文本正确
                 //Console.WriteLine(result);
                 //这里应该监听一个指令
@@ -389,7 +403,7 @@ namespace TestWPF
         //处理回复信息
         private void CallReplyWindow(string text)
         {
-            lock (lockObject)
+            if(haveRequest)
             {
                 double augmentRate = this.Width / 100;
                 // Update ReplyWindow size and position
@@ -419,17 +433,23 @@ namespace TestWPF
                 //bubbleTimer.Start();
                 haveRequest = false;
                 ShowBubble();
-            }
+            }           
         }
 
         private void MainWindow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             RandomStaying();
         }
-        private void ProcessRequests(string input)
+
+        private void ProcessRequests(string input,int op)
         {
-            CallReplyWindow(c.getResponds(new requestInfo(input)));
+            string respond = c.getResponds(input);
+            if (op==1)
+                CallReplyWindow(respond);
+            else if(op==2)
+                requestWindow.ReplyMessage(respond);
         }
+
 
         private void RequestBubble_Click(object sender, RoutedEventArgs e)
 
@@ -442,7 +462,7 @@ namespace TestWPF
             lock (lockObject)
             {
                 string input = CallRequestWindow();
-                ProcessRequests(input);
+                ProcessRequests(input,1);              
             }
           //  bubbleTimer.Start();
             //ShowBubble();
@@ -489,8 +509,7 @@ namespace TestWPF
                 if (haveRequest)
                 {
                     ShowRequestButton();
-                }
-                else
+                }else if(requestWindow==null)
                 {
                     ShowChatButton();
                 }

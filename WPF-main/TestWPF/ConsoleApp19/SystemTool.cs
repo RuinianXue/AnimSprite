@@ -10,15 +10,10 @@ using Microsoft.Win32;
 
 namespace ConsoleApp19
 {
-    internal class SystemTool
+    public class SystemTool
     {
         public double totalMemory { get; }//总内存
         
-
-
-
-
-
         string wallpaperFolderPath;
         private const int SPI_SETDESKWALLPAPER = 20;
         private const int SPIF_UPDATEINIFILE = 0x01;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp19
 {
-    internal class Memorandum
+    public class Memorandum
     {
         List<string> incompleted;
         List<string> completed;
