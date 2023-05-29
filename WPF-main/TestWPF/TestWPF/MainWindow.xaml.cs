@@ -509,7 +509,7 @@ namespace TestWPF
                 if (haveRequest)
                 {
                     ShowRequestButton();
-                }else if(requestWindow==null)
+                }else if(requestWindow==null||!requestWindow.IsLoaded)
                 {
                     ShowChatButton();
                 }
