@@ -23,6 +23,7 @@ namespace ConsoleApp19
         private PerformanceCounter cpuCounter;
         private PerformanceCounter pc;
         private ManagementObjectSearcher searcher;
+
         public SystemTool()
         {
             cpuCounter = new PerformanceCounter("Processor Information", "% Processor Utility", "_Total");

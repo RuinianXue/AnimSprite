@@ -34,7 +34,6 @@ namespace TestWPF
     public partial class MainWindow : Window
     {
         Controller c;
-        SystemTool st;
         Timer updataStatusTimer;
         DispatcherTimer monitorStatusTimer;
        // Timer BubbleTimer;
@@ -44,9 +43,11 @@ namespace TestWPF
             c = new Controller();
             updataStatusTimer =  new Timer(c.setInfoEvent, null, 0, 1000);
             c.throwRequest += getRequest;
+            c.throwEvents += getEventRepond;
             monitorStatusTimer = new DispatcherTimer();
-            monitorStatusTimer.Interval= TimeSpan.FromSeconds(10);
+            monitorStatusTimer.Interval= TimeSpan.FromSeconds(50);
             monitorStatusTimer.Tick += c.monitorStatus;
+            monitorStatusTimer.Tick +=c.monitorEvents;
             monitorStatusTimer.Start();
             infomation = "你好";
             // BubbleTimer = new Timer(c.throwRequest, null, 0, 3000);
@@ -278,6 +279,10 @@ namespace TestWPF
         private DateTime lastChatBubbleClickTime = DateTime.MinValue; // 记录上一次红色对话框点击的时间
 
         private string infomation;
+        private void getEventRepond(string input)
+        {
+            CallReplyWindow(input);
+        }
         private void ChatBubble_Click(object sender, RoutedEventArgs e)
         {
             //红色对话框事件
@@ -288,8 +293,6 @@ namespace TestWPF
             // lastChatBubbleClickTime = DateTime.Now; // 记录当前时间
             lock(lockObject)
             CallReplyWindow(infomation);
-            
-
         }
 
 
@@ -427,7 +430,7 @@ namespace TestWPF
 
                 replyWindow.Left = this.Left + this.Width;
                 replyWindow.Top = this.Top;
-                replyWindow.ShowDialog();
+                replyWindow.Show();
 
                 //如果要显示文本这里需要传入文本。！！！！！！
                 //bubbleTimer.Start();

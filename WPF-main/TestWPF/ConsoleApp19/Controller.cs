@@ -96,10 +96,10 @@ namespace ConsoleApp19
     public class Controller
     {
         //事件，提醒功能，一旦过高，调用桌面精灵的气泡显示
-        static Timer timer;
         SystemTool st;
         Memorandum m;
         public event Action<string> throwRequest;
+        public event Action<string> throwEvents;
         public double totalMemory { get; }//总内存
         private double _cpuUsage;
         public double cpuUsage { get { return _cpuUsage; } }
@@ -110,9 +110,7 @@ namespace ConsoleApp19
         private string[] wallpaperGallerys;
         private int wallpaperGallerysID;//壁纸标号
 
-        int op;
         string request;
-        int mop ;
         public Controller()
         {
             st = new SystemTool();
@@ -138,6 +136,16 @@ namespace ConsoleApp19
             }
             if(sb.Length > 0)
             throwRequest(sb.ToString());
+        }
+        public void monitorEvents(object sender, EventArgs e)
+        {
+           for(int i = 0; i < m.getTime.Count; i++)
+            {
+                if (DateTime.Now > m.getTime[i])
+                {
+                    throwEvents(m.getEvent(i));
+                }
+            }
         }
         public string setNextWallpaperGallerys()
         {
@@ -179,13 +187,15 @@ namespace ConsoleApp19
         }
         public string m_del()
         {
-            m.delElem(request);
-            return request + "已删除";
+            try { m.delElem(int.Parse(request)-1); }
+            catch { return "删除失败"; }
+            return "删除成功";
         }
         public string m_change()
         {
-            m.taskCompleted(request);
-            return request + "已完成";
+            try { m.taskCompleted(int.Parse(request)-1); }
+            catch { return "完成失败"; }
+            return "完成成功";
         }
         public string m_find()
         {
@@ -218,7 +228,7 @@ namespace ConsoleApp19
                         try
                         {
                             string[] parts = s.Split('：');
-                            request = parts[1].Trim();
+                            request = ConvertChineseNumberToArabic(parts[1].Trim());
                         }
                         catch
                         {
@@ -230,6 +240,41 @@ namespace ConsoleApp19
                 }
             }
             return s;
+        }
+        Dictionary<char, string> digitMap = new Dictionary<char, string>
+        {
+        {'零', "0"},
+        {'一', "1"},
+        {'二', "2"},
+        {'三', "3"},
+        {'四', "4"},
+        {'五', "5"},
+        {'六', "6"},
+        {'七', "7"},
+        {'八', "8"},
+        {'九', "9"}
+         };
+        public string ConvertChineseNumberToArabic(string chineseNumber)
+        {
+            string result = "";
+            char last = ' ';
+            if (chineseNumber[0] == '十') result += "1";
+            foreach (char c in chineseNumber)
+            {
+                if (last == '十' && !digitMap.ContainsKey(c)){
+                    result += '0';
+                }
+                
+                if (c == '十') { last = c; continue; }
+                if (digitMap.ContainsKey(c) && last != '周')
+                {
+                    result += digitMap[c];
+                }
+                else result += c;
+                last = c;
+            }
+
+            return result;
         }
     }
 }

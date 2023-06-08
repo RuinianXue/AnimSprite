@@ -67,9 +67,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Function 1" Width="80" />
-            <Button Grid.Column="1" Content="Function 2" Width="80" />
-            <Button Grid.Column="2" Content="Function 3" Width="80" />
+            <Button Grid.Column="0" Content="DoneM" Width="80" Click="Button_Click_4" />
+            <Button Grid.Column="1" Content="DeleteM" Width="80" Click="Button_Click_3" />
+            <Button Grid.Column="2" Content="Addm" Width="80" Click="Button_Click_2" />
         </Grid>
 
         <!-- Additional buttons -->
@@ -80,8 +80,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Button 1" Width="80" />
-            <Button Grid.Column="1" Content="Button 2" Width="80" />
+            <Button Grid.Column="0" Content="GetM" Width="80" Click="Button_Click_1" />
+            <Button Grid.Column="1" Content="ClearM" Width="80" Click="Button_Click" />
             <Button Grid.Column="2" Width="80" Content="Clear" Click="ClearMessages_Click" />
         </Grid>
     </Grid>

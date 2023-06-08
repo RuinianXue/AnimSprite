@@ -193,22 +193,64 @@ namespace TestWPF
             string messageText = s;//这里需要修改！！！！！
             NewMessageBubble(false, messageText);
         }
-
+        string added="";
         private void SendMessage(object sender, RoutedEventArgs e)
         {
             string messageText = "";
-            messageText = messageInput.Text;//这个是message，可以被读取
+            messageText = added+messageInput.Text;//这个是message，可以被读取
 
             NewMessageBubble(true, messageText);
             OnMessageReceived(messageText,2);
             // Clear the input TextBox
             messageInput.Text = "";
-            
+            added = "";
+
+        }
+        private void SendMessage()
+        {
+            string messageText = "";
+            messageText = added + messageInput.Text;//这个是message，可以被读取
+
+            NewMessageBubble(true, messageText);
+            OnMessageReceived(messageText, 2);
+            // Clear the input TextBox
+            messageInput.Text = "";
+            added = "";
+
         }
         private void ClearMessages_Click(object sender, RoutedEventArgs e)
         {
             messageStackPanel.Children.Clear();
             ChatHistoryFile.Delete();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            added = "清空备忘录";
+            SendMessage();
+            added = "";
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            added = "查询备忘录";
+            SendMessage();
+            added = "";
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            added = "添加备忘录：";
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            added = "删除备忘录：";
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            added = "完成备忘录："; 
         }
     }
 }
