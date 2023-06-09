@@ -194,3 +194,10 @@ C:\Users\86187\Desktop\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.csp
 C:\Users\86187\Desktop\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.csproj.CopyComplete
 C:\Users\86187\Desktop\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.exe
 C:\Users\86187\Desktop\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TestWPF.pdb
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\bin\Debug\HandyControl.dll
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\bin\Debug\HandyControl.xml
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\NotesWindow.g.cs
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\NotesWindow.baml
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\App.baml
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TimePanel.g.cs
+D:\Github\AnimSprite\WPF-main\TestWPF\TestWPF\obj\Debug\TimePanel.baml

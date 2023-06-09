@@ -1,28 +1,27 @@
-[Send]换一张壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]完成备忘录
-[Reply] 
-[Reply]再见
-[Reply]再见
-[Reply]再见
-[Send]壁纸
-[Reply]更换壁纸成功
-[Send]壁纸
-[Reply]更换壁纸成功
-[Reply]再见
+[Send]清空备忘录
+[Reply]已完成备忘录清空
+[Send]查询备忘录
+[Reply]未完成：
+已完成：
+
+[Send]添加备忘录：晚上九点吃饭
+[Reply]晚上9点吃饭已添加
+[Send]查询备忘录
+[Reply]未完成：
+  1. 晚上9点吃饭
+     设置完成时间:2023/6/9 21:00:00
+已完成：
+
+[Send]查询备忘录
+[Reply]未完成：
+  1. 晚上9点吃饭
+     设置完成时间:2023/6/9 21:00:00
+已完成：
+
+[Send]完成备忘录：1
+[Reply]完成成功
+[Send]查询备忘录
+[Reply]未完成：
+已完成：
+  1. 晚上9点吃饭
+

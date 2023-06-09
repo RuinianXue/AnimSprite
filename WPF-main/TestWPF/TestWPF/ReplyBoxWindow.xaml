@@ -17,7 +17,7 @@
         <Viewbox Grid.RowSpan="2" Height="150" Width="150" x:Name="ReplyBoxView">
             <Grid Background="Transparent">
                 <Border Background="#B3C5E0" CornerRadius="20" Padding="10" Grid.RowSpan="2">
-                    <TextBlock TextWrapping="Wrap" x:Name="ReplyBox" Width="80"><Run Language="zh-cn"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap" x:Name="ReplyBox" Width="80"><Run Language="zh-cn" /></TextBlock>
                 </Border>
             </Grid>
         </Viewbox>

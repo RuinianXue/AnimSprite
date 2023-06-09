@@ -20,9 +20,9 @@ namespace ConsoleApp19
         string myevent;
         public List<DateTime?> getTime { get { return incompletedTime; } }
         //public List<string> getEvents { get { return events; } }
-       List<DateTime?> incompletedTime;
+        List<DateTime?> incompletedTime;
         List<DateTime> completedTime;
-        /* string timeFilePath;*/
+        string eventsFilePath;
         string timeinFilePath;
         StreamReader reader;
         bool isExists(string path)
@@ -37,8 +37,8 @@ namespace ConsoleApp19
         }
         public string getEvent(int i)
         {
-            if(i<events.Count)
-            return  events[i];
+            if (i < events.Count)
+                return events[i];
             return " ";
         }
         public Memorandum()
@@ -49,7 +49,7 @@ namespace ConsoleApp19
             completedTime = new List<DateTime>();
             inFilePath = "incompleted.txt";
             filePath = "completed.txt";
-            /*timeFilePath = "completedTime.txt";*/
+            eventsFilePath = "events.txt";
             timeinFilePath = "incompletedTime.txt";
             string line;
             DateTime dt;
@@ -58,7 +58,7 @@ namespace ConsoleApp19
             {
                 while ((line = reader.ReadLine()) != null)
                 {
-                    completed.Add(line);                  
+                    completed.Add(line);
                 }
             }
             if (isExists(inFilePath))
@@ -68,12 +68,20 @@ namespace ConsoleApp19
                     incompleted.Add(line);
                 }
             }
+            if (isExists(eventsFilePath))
+            {
+                while ((line = reader.ReadLine()) != null)
+                {
+                    events.Add(line);
+                }
+            }
             if (isExists(timeinFilePath))
             {
                 while ((line = reader.ReadLine()) != null)
                 {
-                    if(line!="-")
-                    incompletedTime.Add(DateTime.Parse(line));
+                    if (line != "-")
+                        incompletedTime.Add(DateTime.Parse(line));
+                    else incompletedTime.Add(null);
                 }
             }
             /*if (isExists(timeFilePath))
@@ -83,19 +91,20 @@ namespace ConsoleApp19
                     incompletedTime.Add(DateTime.Parse(line));
                 }
             }*/
-            if (reader!=null)reader.Close();
+            if (reader != null) reader.Close();
         }
 
         public void addElem(string elem)
         {
-            incompleted.Add(elem);
             var dt = getSetTime(elem);
             File.AppendAllText(inFilePath, elem + Environment.NewLine);
-            if(dt!=null)
-            File.AppendAllText(timeinFilePath, dt + Environment.NewLine);
+            if (dt != null)
+                File.AppendAllText(timeinFilePath, dt + Environment.NewLine);
             else File.AppendAllText(timeinFilePath, "-" + Environment.NewLine);
             incompletedTime.Add(dt);
             events.Add(myevent);
+            incompleted.Add(elem);
+            File.AppendAllText(eventsFilePath, myevent + Environment.NewLine);
             save();
         }
         /*public void addElem(string elem, string time)
@@ -126,6 +135,7 @@ namespace ConsoleApp19
             completed.Add(incompleted[i]);
             incompletedTime.RemoveAt(i);
             incompleted.RemoveAt(i);
+            events.RemoveAt(i);
             save();
         }
         public void delElem(int i)
@@ -133,10 +143,11 @@ namespace ConsoleApp19
             if (i < incompleted.Count)
             {
                 incompletedTime.RemoveAt(i);
+                events.RemoveAt(i);
                 incompleted.RemoveAt(i);
             }
             else completed.RemoveAt(i - incompleted.Count);
-           save();
+            save();
         }
         public void delElem(string elem)
         {
@@ -164,10 +175,10 @@ namespace ConsoleApp19
         public string getCom()
         {
             StringBuilder sb = new StringBuilder();
-            int n = incompleted.Count;  
+            int n = incompleted.Count;
             for (int i = 0; i < completed.Count; i++)
             {
-                sb.Append("  ").Append(i + n).Append(".").Append(completed[i]).Append("\n");
+                sb.Append("  ").Append(i + n + 1).Append(". ").Append(completed[i]).Append("\n");
             }
             return sb.ToString();
         }
@@ -176,8 +187,9 @@ namespace ConsoleApp19
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < incompleted.Count; i++)
             {
-                sb.Append("  ").Append(i + 1).Append("、").Append(incompleted[i]).Append("\n");
+                sb.Append("  ").Append(i + 1).Append(". ").Append(incompleted[i]).Append("\n");
                 if (incompletedTime[i] != null) sb.Append("     设置完成时间:").Append(incompletedTime[i]);
+                else sb.Append("     时间格式错误，设置时间失败");
                 sb.Append("\n");
             }
             return sb.ToString();
@@ -196,10 +208,11 @@ namespace ConsoleApp19
             File.WriteAllText(filePath, "");
             File.WriteAllText(inFilePath, "");
             File.WriteAllText(timeinFilePath, "");
+            File.WriteAllText(eventsFilePath, "");
             for (int i = 0; i < completed.Count; i++)
             {
                 File.AppendAllText(filePath, completed[i] + Environment.NewLine);
-                
+
             }
             for (int i = 0; i < incompleted.Count; i++)
             {
@@ -207,6 +220,7 @@ namespace ConsoleApp19
                 if (incompletedTime[i] != null)
                     File.AppendAllText(timeinFilePath, incompletedTime[i] + Environment.NewLine);
                 else File.AppendAllText(timeinFilePath, "-" + Environment.NewLine);
+                File.AppendAllText(eventsFilePath, events[i] + Environment.NewLine);
             }
         }
         public void printAll()
@@ -268,9 +282,8 @@ namespace ConsoleApp19
         {
             DateTime now = DateTime.Now;
             DayOfWeek currentDayOfWeek = now.DayOfWeek;
-
             myevent = " ";
-            string pattern = @"(?i)(\b明天|\b后天|\b大后天)?(\b本周|\b下周)?([一二三四五六日周])?(早上|上午|下午|晚上)?(\d+)点(\d+)?(分(钟)?)?";
+            string pattern = @"(?i)(\b明天|\b后天|\b大后天)?(\b本周|\b下周)?([一二三四五六日周])?(早上|上午|下午|晚上)?(\d+)点(\d+)?(分(钟)?)?([\u4E00-\u9FFF]+)?";
             Match match = Regex.Match(input, pattern);
             if (match.Success)
             {
@@ -280,9 +293,9 @@ namespace ConsoleApp19
                 string timePhrase = match.Groups[4].Value;
                 string hour = match.Groups[5].Value;
                 string minute = match.Groups[6].Value;
-                for(int i= 0; i < match.Groups.Count; i++)
+                for (int i = 0; i < match.Groups.Count; i++)
                 {
-                    if((match.Groups[i].Value).Length>=2)
+                    if ((match.Groups[i].Value).Length >= 1)
                         myevent = match.Groups[i].Value;
                 }
                 int daysToAdd = 0;

@@ -128,18 +128,18 @@ namespace ConsoleApp19
             StringBuilder sb = new StringBuilder();
             if (_availableMemory < 5)
             {
-                sb.Append("当前总内存：").Append(totalMemory).Append("G\n").Append("可用内存：").Append(_availableMemory).Append("G，内存使用有些过高\n");               
+                sb.Append("当前总内存：").Append(totalMemory).Append("G\n").Append("可用内存：").Append(_availableMemory).Append("G，内存使用有些过高\n");
             }
             if (_temperature > 70)
             {
                 sb.Append("当前cpu温度：").Append(_temperature).Append("℃，温度有些过高");
             }
-            if(sb.Length > 0)
-            throwRequest(sb.ToString());
+            if (sb.Length > 0)
+                throwRequest(sb.ToString());
         }
         public void monitorEvents(object sender, EventArgs e)
         {
-           for(int i = 0; i < m.getTime.Count; i++)
+            for (int i = 0; i < m.getTime.Count; i++)
             {
                 if (DateTime.Now > m.getTime[i])
                 {
@@ -164,9 +164,9 @@ namespace ConsoleApp19
         }
         public void setInfoEvent(object state)
         {
-                _cpuUsage = st.getCPUusage();
-                _availableMemory = st.getAvailableMemory();
-                _temperature = st.getTemperature();             
+            _cpuUsage = st.getCPUusage();
+            _availableMemory = st.getAvailableMemory();
+            _temperature = st.getTemperature();
         }
         public string getMemory()
         {
@@ -182,28 +182,33 @@ namespace ConsoleApp19
         }
         public string m_add()
         {
-            m.addElem(request);
+            try { m.addElem(request); }
+            catch { return "添加失败"; }
             return request + "已添加";
         }
         public string m_del()
         {
-            try { m.delElem(int.Parse(request)-1); }
+            try { m.delElem(int.Parse(request) - 1); }
             catch { return "删除失败"; }
             return "删除成功";
         }
         public string m_change()
         {
-            try { m.taskCompleted(int.Parse(request)-1); }
+            try { m.taskCompleted(int.Parse(request) - 1); }
             catch { return "完成失败"; }
             return "完成成功";
         }
         public string m_find()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("未完成：\n");
-            sb.Append(m.getIncom());
-            sb.Append("已完成：\n");
-            sb.Append(m.getCom());
+            try
+            {
+                sb.Append("未完成：\n");
+                sb.Append(m.getIncom());
+                sb.Append("已完成：\n");
+                sb.Append(m.getCom());
+            }
+            catch { return "查询失败"; }
             return sb.ToString();
         }
         public string m_clear()
@@ -221,9 +226,9 @@ namespace ConsoleApp19
             {
                 if (s.Contains(key))
                 {
-                   // return ConfigurationManager.AppSettings[key];
+                    // return ConfigurationManager.AppSettings[key];
                     MethodInfo methodInfo = this.GetType().GetMethod(ConfigurationManager.AppSettings[key]);
-                    if (key.Contains("添加备忘录")|| key.Contains("完成备忘录")|| key.Contains("删除备忘录"))
+                    if (key.Contains("添加备忘录") || key.Contains("完成备忘录") || key.Contains("删除备忘录"))
                     {
                         try
                         {
@@ -257,23 +262,52 @@ namespace ConsoleApp19
         public string ConvertChineseNumberToArabic(string chineseNumber)
         {
             string result = "";
-            char last = ' ';
-            if (chineseNumber[0] == '十') result += "1";
+            /*char last = ' ';
+            char llast = ' ';
             foreach (char c in chineseNumber)
             {
-                if (last == '十' && !digitMap.ContainsKey(c)){
-                    result += '0';
+                if (last == '十' && !digitMap.ContainsKey(c))
+                {
+                    if (!digitMap.ContainsKey(llast)) result += 1;
+                    else
+                        result += '0';
                 }
-                
-                if (c == '十') { last = c; continue; }
+                if (c == '十') { llast = last; last = c; continue; }
                 if (digitMap.ContainsKey(c) && last != '周')
                 {
                     result += digitMap[c];
                 }
                 else result += c;
                 last = c;
+                llast = last;
+            }*/
+            if (chineseNumber[0] == '十')
+            {
+                result += 1;
             }
-
+            else if (digitMap.ContainsKey(chineseNumber[0]))
+            {
+                result += digitMap[chineseNumber[0]];
+            }
+            else result += chineseNumber[0];
+            for (int i = 1; i < chineseNumber.Length; i++)
+            {
+                if (chineseNumber[i] == '十')
+                {
+                    if (!digitMap.ContainsKey(chineseNumber[i - 1]) || (i > 1 && chineseNumber[i - 2] == '周'))
+                        result += 1;
+                    continue;
+                }
+                if (chineseNumber[i - 1] == '十' && !digitMap.ContainsKey(chineseNumber[i]))
+                {
+                    result += 0;
+                }
+                if (digitMap.ContainsKey(chineseNumber[i]) && chineseNumber[i - 1] != '周')
+                {
+                    result += digitMap[chineseNumber[i]];
+                }
+                else result += chineseNumber[i];
+            }
             return result;
         }
     }

@@ -52,15 +52,13 @@ namespace TestWPF
         public string SendText { get; set; }
         public event Action<string,int> OnMessageReceived;
         public event Action closed;
-        public ChatWindow()
+        public event Func<string,string> getM;
+        public void LoadChatHistoryFromFile()
         {
-            InitializeComponent();
-
-            // Load the chat history from the file
             string chatHistory = ChatHistoryFile.Load();
             if (!string.IsNullOrEmpty(chatHistory))
             {
-                string tmpmssage="";
+                string tmpmssage = "";
                 string[] messages = chatHistory.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string message in messages)
                 {
@@ -89,7 +87,7 @@ namespace TestWPF
                     }
                     else
                     {
-                        Console.WriteLine(tmpmssage+"Chat History File Error");
+                        Console.WriteLine(tmpmssage + "Chat History File Error");
                     }
                     messageTextBorder.CornerRadius = new CornerRadius(10);
                     messageTextBorder.Padding = new Thickness(10);
@@ -109,6 +107,13 @@ namespace TestWPF
                     messageStackPanel.Children.Add(messageBubble);
                 }
             }
+        }
+        public ChatWindow()
+        {
+            InitializeComponent();
+            LoadChatHistoryFromFile();
+            // Load the chat history from the file
+
         }
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -233,6 +238,11 @@ namespace TestWPF
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            //直接打开可视化界面
+            NotesWindow notesWindow = new NotesWindow();
+            //notesWindow.tmpstr = getM("查询备忘录");
+            //Console.WriteLine(notesWindow.tmpstr);
+            notesWindow.Show();
             added = "查询备忘录";
             SendMessage();
             added = "";

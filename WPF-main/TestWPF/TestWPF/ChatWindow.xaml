@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWPF"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="ChatWindow" Height="500" Width="400"
-        WindowStyle="None"
         ResizeMode="NoResize">
 
-    <Grid MaxWidth="400" MaxHeight="500" HorizontalAlignment="Left" Width="400">
+    <Grid MaxWidth="390" MaxHeight="500" HorizontalAlignment="Left" Width="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -56,7 +56,7 @@
             <TextBox Grid.Column="0" Margin="0 0 10 0" KeyDown="TextBox_KeyDown" x:Name="messageInput" />
 
             <!-- Send button -->
-            <Button Grid.Column="1" Content="Send" Width="80" Click="SendMessage" />
+            <Button Grid.Column="1" Content="Send" Width="80" Click="SendMessage" hc:BorderElement.CornerRadius="15" />
         </Grid>
 
         <!-- Additional buttons -->
@@ -67,9 +67,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="DoneM" Width="80" Click="Button_Click_4" />
-            <Button Grid.Column="1" Content="DeleteM" Width="80" Click="Button_Click_3" />
-            <Button Grid.Column="2" Content="Addm" Width="80" Click="Button_Click_2" />
+            <Button Grid.Column="0" Content="DoneM" Width="80" Click="Button_Click_4" hc:BorderElement.CornerRadius="15"/>
+            <Button Grid.Column="1" Content="DeleteM" Width="80" Click="Button_Click_3" hc:BorderElement.CornerRadius="15"/>
+            <Button Grid.Column="2" Content="Addm" Width="80" Click="Button_Click_2"  hc:BorderElement.CornerRadius="15"/>
         </Grid>
 
         <!-- Additional buttons -->
@@ -80,9 +80,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="GetM" Width="80" Click="Button_Click_1" />
-            <Button Grid.Column="1" Content="ClearM" Width="80" Click="Button_Click" />
-            <Button Grid.Column="2" Width="80" Content="Clear" Click="ClearMessages_Click" />
+            <Button Grid.Column="0" Content="GetM" Width="80" Click="Button_Click_1"  hc:BorderElement.CornerRadius="15" />
+            <Button Grid.Column="1" Content="ClearM" Width="80" Click="Button_Click"  hc:BorderElement.CornerRadius="15"/>
+            <Button Grid.Column="2" Width="80" Content="Clear" Click="ClearMessages_Click"  hc:BorderElement.CornerRadius="15" />
         </Grid>
     </Grid>
 </Window> 

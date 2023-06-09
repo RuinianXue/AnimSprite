@@ -36,18 +36,18 @@ namespace TestWPF
         Controller c;
         Timer updataStatusTimer;
         DispatcherTimer monitorStatusTimer;
-       // Timer BubbleTimer;
+        // Timer BubbleTimer;
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             c = new Controller();
-            updataStatusTimer =  new Timer(c.setInfoEvent, null, 0, 1000);
+            updataStatusTimer = new Timer(c.setInfoEvent, null, 0, 1000);
             c.throwRequest += getRequest;
             c.throwEvents += getEventRepond;
             monitorStatusTimer = new DispatcherTimer();
-            monitorStatusTimer.Interval= TimeSpan.FromSeconds(50);
+            monitorStatusTimer.Interval = TimeSpan.FromSeconds(20);
             monitorStatusTimer.Tick += c.monitorStatus;
-            monitorStatusTimer.Tick +=c.monitorEvents;
+            monitorStatusTimer.Tick += c.monitorEvents;
             monitorStatusTimer.Start();
             infomation = "你好";
             // BubbleTimer = new Timer(c.throwRequest, null, 0, 3000);
@@ -85,7 +85,7 @@ namespace TestWPF
             {
                 ChatBubble.Visibility = Visibility.Visible;
                 RequestBubble.Visibility = Visibility.Collapsed;
-                ChatButton.Visibility= Visibility.Visible;
+                ChatButton.Visibility = Visibility.Visible;
                 RequestButton.Visibility = Visibility.Collapsed;
             }
         }
@@ -112,13 +112,13 @@ namespace TestWPF
             if (e.WidthChanged)
             {
                 // 根据宽度和比例计算高度，并设置窗口的高度
-                this.Height = this.Width ;
+                this.Height = this.Width;
             }
             // 如果窗口的高度变化了
             if (e.HeightChanged)
             {
                 // 根据高度和比例计算宽度，并设置窗口的宽度
-                this.Width = this.Height ;
+                this.Width = this.Height;
             }
             GifImage.Width = this.Width;
             GifImage.Height = this.Height;
@@ -133,8 +133,8 @@ namespace TestWPF
             BubbleButton.Height = this.Height;
             Arrow.Width = this.Width;
             Arrow.Height = this.Height;
-//          InputText.Width = this.Width;
-//          InputText.Height = this.Height;
+            //          InputText.Width = this.Width;
+            //          InputText.Height = this.Height;
         }
 
         //loadImage
@@ -181,7 +181,7 @@ namespace TestWPF
         {
             Move();
         }
-        
+
         private void RandomStaying()
         {
             int state = random.Next(1, 5);
@@ -268,7 +268,7 @@ namespace TestWPF
                 }
 
                 // Show bubble if not visible
-                
+
             }
 
         }
@@ -291,8 +291,8 @@ namespace TestWPF
             Console.WriteLine("Chat bubble clicked!");
             // StartChatTimer();//注意这里
             // lastChatBubbleClickTime = DateTime.Now; // 记录当前时间
-            lock(lockObject)
-            CallReplyWindow(infomation);
+            lock (lockObject)
+                CallReplyWindow(infomation);
         }
 
 
@@ -304,7 +304,7 @@ namespace TestWPF
             chatTimer.Tick += ChatTimer_Tick;
             chatTimer.Start();
         }
-        
+
         private void StartStayTimer()
         {
             stayTimer = new DispatcherTimer();
@@ -315,7 +315,7 @@ namespace TestWPF
 
         private void StayTimer_Tick(object sender, EventArgs e)
         {
-            if(!isMoving)
+            if (!isMoving)
             {
                 RandomStaying();
             }
@@ -344,7 +344,7 @@ namespace TestWPF
             bubbleVisible = false;
             //bubbleTimer.Stop();
         }
-        
+
         //气泡被点击
         private void RequestBubble_Click(object sender, MouseButtonEventArgs e)
         {
@@ -406,7 +406,7 @@ namespace TestWPF
         //处理回复信息
         private void CallReplyWindow(string text)
         {
-            if(haveRequest)
+            if (haveRequest)
             {
                 double augmentRate = this.Width / 100;
                 // Update ReplyWindow size and position
@@ -436,7 +436,7 @@ namespace TestWPF
                 //bubbleTimer.Start();
                 haveRequest = false;
                 ShowBubble();
-            }           
+            }
         }
 
         private void MainWindow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -444,12 +444,12 @@ namespace TestWPF
             RandomStaying();
         }
 
-        private void ProcessRequests(string input,int op)
+        private void ProcessRequests(string input, int op)
         {
             string respond = c.getResponds(input);
-            if (op==1)
+            if (op == 1)
                 CallReplyWindow(respond);
-            else if(op==2)
+            else if (op == 2)
                 requestWindow.ReplyMessage(respond);
         }
 
@@ -465,9 +465,9 @@ namespace TestWPF
             lock (lockObject)
             {
                 string input = CallRequestWindow();
-                ProcessRequests(input,1);              
+                ProcessRequests(input, 1);
             }
-          //  bubbleTimer.Start();
+            //  bubbleTimer.Start();
             //ShowBubble();
             //如果事件来了
             /*if(true)
@@ -506,19 +506,21 @@ namespace TestWPF
         static object lockObject = new object();
         private void ShowBubble()
         {
-            lock(lockObject){
+            lock (lockObject)
+            {
                 int randomNum = random.Next(1, 101);
-                bubbleVisible = true;                            
+                bubbleVisible = true;
                 if (haveRequest)
                 {
                     ShowRequestButton();
-                }else if(requestWindow==null||!requestWindow.IsLoaded)
+                }
+                else if (requestWindow == null || !requestWindow.IsLoaded)
                 {
                     ShowChatButton();
                 }
             }
         }
-        
+
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
         {

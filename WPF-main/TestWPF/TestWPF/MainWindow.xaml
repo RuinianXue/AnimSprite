@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:TestWPF"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" 
         SizeChanged="Window_SizeChanged"
@@ -19,6 +20,7 @@
             MouseLeftButtonDown="Window_MouseLeftButtonDown"
             MouseRightButtonDown="MainWindow_MouseRightButtonDown"
         >
+
     <Window.Resources>
         <Style x:Key="MyButtonStyle" TargetType="Control">
             <Setter Property="RenderTransformOrigin" Value="3.174,-1.997" />
@@ -72,9 +74,7 @@
                 <Image x:Name="ArrowImage" Source="/Resources/Arrow.png" Style="{DynamicResource MyArrowStyle}" Visibility="Collapsed"/>
             </Grid>
         </Viewbox>
-       
-
+        <hc:NotifyIcon Text="HandyControl" IsBlink="true" Visibility="Visible" Icon="/Resources/Stay.gif"/>
     </Grid>
-
 </Window>
 

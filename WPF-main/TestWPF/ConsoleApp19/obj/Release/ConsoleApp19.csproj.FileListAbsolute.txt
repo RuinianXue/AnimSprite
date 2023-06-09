@@ -1,0 +1,7 @@
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\bin\Release\ConsoleApp19.dll.config
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\bin\Release\ConsoleApp19.dll
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\bin\Release\ConsoleApp19.pdb
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Release\ConsoleApp19.csproj.AssemblyReference.cache
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Release\ConsoleApp19.csproj.CoreCompileInputs.cache
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Release\ConsoleApp19.dll
+D:\Github\AnimSprite\WPF-main\TestWPF\ConsoleApp19\obj\Release\ConsoleApp19.pdb
