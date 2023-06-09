@@ -1,8 +1,0 @@
-D:\projects\ConsoleApp19\obj\Debug\ConsoleApp19.csproj.AssemblyReference.cache
-D:\projects\ConsoleApp19\obj\Debug\ConsoleApp19.csproj.SuggestedBindingRedirects.cache
-D:\projects\ConsoleApp19\obj\Debug\ConsoleApp19.csproj.CoreCompileInputs.cache
-D:\projects\ConsoleApp19\bin\Debug\ConsoleApp19.exe.config
-D:\projects\ConsoleApp19\bin\Debug\ConsoleApp19.exe
-D:\projects\ConsoleApp19\bin\Debug\ConsoleApp19.pdb
-D:\projects\ConsoleApp19\obj\Debug\ConsoleApp19.exe
-D:\projects\ConsoleApp19\obj\Debug\ConsoleApp19.pdb
